@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guia Interativo: Juniper SD-WAN para unespNET</title>
+    <title>Guia Interativo: Juniper SD-WAN com Conductor para unespNET</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Chosen Palette: Warm Neutrals -->
-    <!-- Application Structure Plan: A single-page dashboard structure was chosen over a linear document format to improve usability. The application is divided into thematic sections: an introduction with key benefits, an interactive architecture diagram, a visual exploration of core advantages (SLA vs SLE, SVR efficiency), a step-by-step implementation guide, and a simulated operations dashboard. This task-oriented flow allows network administrators to quickly access the information they need, from high-level concepts to specific implementation details, in a more engaging and less overwhelming manner than a traditional document. -->
-    <!-- Visualization & Content Choices: Report Info: SD-WAN benefits -> Goal: Inform/Compare -> Viz: Interactive cards and Chart.js bar/line charts -> Interaction: Hover effects on cards, toggles for charts -> Justification: Visually demonstrates abstract benefits like SVR overhead reduction and the shift from network-centric SLAs to user-centric SLEs, making them tangible and easier to grasp. Report Info: Zero Trust Model -> Goal: Organize/Inform -> Viz: HTML/CSS flowchart -> Interaction: Clickable steps to reveal details -> Justification: Simplifies the complex packet authorization flow (Tenant -> Service) into a clear, sequential visual process. Report Info: ZTP/Implementation -> Goal: Organize/Guide -> Viz: Tabbed interface/Accordion -> Interaction: Clicking tabs/sections -> Justification: Breaks down the dense procedural text into manageable, sequential steps, improving readability and reducing cognitive load for the user following the guide. -->
+    <!-- Application Structure Plan: The application structure remains a single-page dashboard but is now centered around Juniper Conductor as the management plane. The core sections are maintained (Intro, Architecture, Benefits, Implementation, Operations), but the content is heavily revised. The interactive architecture diagram now correctly points to Conductor. The "Benefits" section replaces Mist-specific concepts (SLEs) with Conductor's strengths, such as granular session visibility for both IPv4 and IPv6. The implementation and operations sections are rewritten to reflect Conductor's ZTP, GUI, and troubleshooting workflows, which is crucial for the user's IPv6 requirement. -->
+    <!-- Visualization & Content Choices: Report Info: SD-WAN benefits -> Goal: Inform/Compare -> Viz: Interactive cards and Chart.js bar chart -> Interaction: Hover effects -> Justification: The SVR efficiency chart remains valid as it's an SSR feature. Report Info: Granular Visibility -> Goal: Inform -> Viz: Styled HTML table simulating Conductor's session view -> Interaction: Static display -> Justification: This replaces the Mist SLE chart and directly addresses the need to show detailed session data, including IPv6, which is a core strength of the Conductor/SSR solution and a key user requirement. Report Info: ZTP/Implementation -> Goal: Guide -> Viz: Tabbed interface -> Interaction: Clicking tabs -> Justification: This structure is retained but the content within each tab is updated to reflect the Conductor-specific provisioning process (e.g., adopting assets, configuring via Authority). -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
@@ -72,11 +72,6 @@
             border-color: #6B8A9C;
             transform: scale(1.05);
         }
-        .diagram-line {
-            position: absolute;
-            background-color: #9DB5C4;
-            z-index: -1;
-        }
     </style>
 </head>
 <body class="antialiased">
@@ -103,36 +98,36 @@
 
     <main class="container mx-auto px-6 py-12">
         <section id="inicio" class="text-center min-h-[60vh] flex flex-col justify-center items-center">
-            <h2 class="text-4xl md:text-6xl font-bold mb-4 text-[#4A5C6A]">Modernizando a unespNET com SD-WAN Inteligente</h2>
-            <p class="text-lg md:text-xl max-w-3xl mx-auto mb-12 text-[#5E544C]">Uma visão interativa da arquitetura e implementação da solução SD-WAN da Juniper, impulsionada por IA, para transformar a conectividade multicampus da Unesp.</p>
+            <h2 class="text-4xl md:text-6xl font-bold mb-4 text-[#4A5C6A]">Modernizando a unespNET com SD-WAN Robusta e Flexível</h2>
+            <p class="text-lg md:text-xl max-w-3xl mx-auto mb-12 text-[#5E544C]">Uma visão interativa da arquitetura SD-WAN da Juniper, gerenciada pelo Conductor, para transformar a conectividade multicampus da Unesp com suporte total a IPv4 e IPv6.</p>
             <div class="grid md:grid-cols-3 gap-8 w-full max-w-5xl">
                 <div class="card bg-white p-6 rounded-lg shadow-md border border-gray-200">
-                    <h3 class="text-xl font-bold mb-2 text-[#4A5C6A]">Experiência Aprimorada</h3>
-                    <p class="text-[#5E544C]">Acesso confiável e de alto desempenho a aplicações críticas, com direcionamento inteligente de tráfego pelo melhor caminho disponível.</p>
+                    <h3 class="text-xl font-bold mb-2 text-[#4A5C6A]">Desempenho Superior</h3>
+                    <p class="text-[#5E544C]">Roteamento inteligente por sessão (SVR) que otimiza o uso da banda e garante a melhor performance para aplicações, independentemente do protocolo de rede.</p>
                 </div>
                 <div class="card bg-white p-6 rounded-lg shadow-md border border-gray-200">
-                    <h3 class="text-xl font-bold mb-2 text-[#4A5C6A]">Operações Simplificadas</h3>
-                    <p class="text-[#5E544C]">Gerenciamento centralizado na nuvem com provisionamento Zero-Touch (ZTP), reduzindo drasticamente a sobrecarga operacional.</p>
+                    <h3 class="text-xl font-bold mb-2 text-[#4A5C6A]">Gerenciamento Centralizado</h3>
+                    <p class="text-[#5E544C]">Orquestração unificada de toda a rede a partir do Juniper Conductor, com provisionamento Zero-Touch (ZTP) para simplificar a expansão.</p>
                 </div>
                 <div class="card bg-white p-6 rounded-lg shadow-md border border-gray-200">
-                    <h3 class="text-xl font-bold mb-2 text-[#4A5C6A]">Segurança Modernizada</h3>
-                    <p class="text-[#5E544C]">Modelo de segurança Zero Trust intrínseco, garantindo que apenas usuários e dispositivos autorizados acessem os recursos permitidos.</p>
+                    <h3 class="text-xl font-bold mb-2 text-[#4A5C6A]">Segurança e Controle</h3>
+                    <p class="text-[#5E544C]">Modelo de segurança Zero Trust intrínseco e total controle sobre a infraestrutura, garantindo conformidade com as políticas da unespNET.</p>
                 </div>
             </div>
         </section>
 
         <section id="arquitetura" class="py-20">
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 text-[#4A5C6A]">Arquitetura Interativa da Solução</h2>
-            <p class="text-lg text-center max-w-3xl mx-auto mb-12 text-[#5E544C]">Explore os componentes centrais da arquitetura SD-WAN da Juniper. Clique em cada elemento para entender seu papel na modernização da rede unespNET, desde o roteamento inteligente até o gerenciamento na nuvem.</p>
+            <p class="text-lg text-center max-w-3xl mx-auto mb-12 text-[#5E544C]">Explore os componentes centrais da arquitetura. Clique em cada elemento para entender seu papel, desde o roteamento inteligente dos SSRs até a orquestração centralizada via Conductor.</p>
             <div class="bg-white p-8 rounded-lg shadow-lg border border-gray-200">
                 <div class="relative h-[500px] md:h-[400px] flex flex-col md:flex-row justify-around items-center" id="diagram-container">
                     <div class="diagram-node text-center p-4 rounded-lg bg-blue-100 border-blue-300" data-content="ssr" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
                         <h4 class="font-bold">Session Smart Router (SSR)</h4>
                         <p class="text-sm">O Coração da Rede</p>
                     </div>
-                    <div class="diagram-node text-center p-3 rounded-lg bg-green-100 border-green-300" data-content="mist" style="position: absolute; top: 10%; left: 50%; transform: translateX(-50%);">
-                        <h4 class="font-bold">Juniper Mist Cloud</h4>
-                        <p class="text-sm">Gerenciamento e IA</p>
+                    <div class="diagram-node text-center p-3 rounded-lg bg-green-100 border-green-300" data-content="conductor" style="position: absolute; top: 10%; left: 50%; transform: translateX(-50%);">
+                        <h4 class="font-bold">Juniper Conductor</h4>
+                        <p class="text-sm">Gerenciamento e Orquestração</p>
                     </div>
                     <div class="diagram-node text-center p-3 rounded-lg bg-yellow-100 border-yellow-300" data-content="lan2lan" style="position: absolute; bottom: 10%; left: 20%; transform: translateX(-50%);">
                         <h4 class="font-bold">Underlay (Lan2Lan)</h4>
@@ -152,7 +147,7 @@
 
         <section id="beneficios" class="py-20">
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 text-[#4A5C6A]">Benefícios em Ação</h2>
-            <p class="text-lg text-center max-w-3xl mx-auto mb-12 text-[#5E544C]">Visualize as vantagens técnicas da solução. De uma maior eficiência de banda a um novo paradigma de monitoramento, veja como a SD-WAN da Juniper otimiza a performance e a segurança da rede.</p>
+            <p class="text-lg text-center max-w-3xl mx-auto mb-12 text-[#5E544C]">Visualize as vantagens técnicas da solução. De uma maior eficiência de banda a uma visibilidade sem precedentes sobre o tráfego de rede, veja como a solução otimiza a performance.</p>
             <div class="space-y-12">
                 <div class="bg-white p-8 rounded-lg shadow-lg border border-gray-200">
                     <h3 class="text-2xl font-bold text-center mb-4">Eficiência de Banda: SVR vs. IPsec Tradicional</h3>
@@ -162,38 +157,43 @@
                     </div>
                 </div>
                 <div class="bg-white p-8 rounded-lg shadow-lg border border-gray-200">
-                    <h3 class="text-2xl font-bold text-center mb-4">De SLA para SLE: Foco na Experiência Real</h3>
-                    <p class="text-center mb-6 text-[#5E544C]">A Mist AI muda o foco de métricas de rede (SLA) para a qualidade real da experiência do usuário (SLE). Um link pode estar "ativo" (SLA bom), mas a experiência de uma videochamada pode ser ruim (SLE ruim).</p>
-                    <div class="chart-container">
-                        <canvas id="sleChart"></canvas>
-                    </div>
-                </div>
-                 <div class="bg-white p-8 rounded-lg shadow-lg border border-gray-200">
-                    <h3 class="text-2xl font-bold text-center mb-4">Fluxo de Segurança Zero Trust</h3>
-                    <p class="text-center mb-6 text-[#5E544C]">A rede opera em um modelo "deny-by-default". Cada sessão é validada antes de ser estabelecida, garantindo que apenas tráfego autorizado atravesse a rede. Clique nos passos para ver a lógica.</p>
-                    <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4">
-                        <div id="zt-step-1" class="zt-step text-center p-4 border-2 border-gray-300 rounded-lg cursor-pointer">
-                            <span class="text-2xl">1.</span>
-                            <h4 class="font-semibold">Chegada do Pacote</h4>
-                        </div>
-                        <div class="text-2xl font-mono text-gray-400">&rarr;</div>
-                        <div id="zt-step-2" class="zt-step text-center p-4 border-2 border-gray-300 rounded-lg cursor-pointer">
-                             <span class="text-2xl">2.</span>
-                            <h4 class="font-semibold">Origem é um 'Tenant' Válido?</h4>
-                        </div>
-                        <div class="text-2xl font-mono text-gray-400">&rarr;</div>
-                        <div id="zt-step-3" class="zt-step text-center p-4 border-2 border-gray-300 rounded-lg cursor-pointer">
-                             <span class="text-2xl">3.</span>
-                            <h4 class="font-semibold">Destino é um 'Service' Permitido?</h4>
-                        </div>
-                        <div class="text-2xl font-mono text-gray-400">&rarr;</div>
-                        <div id="zt-step-4" class="zt-step text-center p-4 border-2 border-green-500 bg-green-50 rounded-lg">
-                            <span class="text-2xl">4.</span>
-                            <h4 class="font-semibold">Sessão Autorizada</h4>
-                        </div>
-                    </div>
-                    <div id="zt-explanation" class="mt-6 p-4 bg-gray-100 rounded text-center text-[#5E544C]">
-                        Clique em um passo para ver a explicação.
+                    <h3 class="text-2xl font-bold text-center mb-4">Visibilidade Granular de Sessão (IPv4/IPv6)</h3>
+                    <p class="text-center mb-6 text-[#5E544C]">O Conductor oferece uma visão detalhada de cada sessão que atravessa a rede, permitindo análises profundas e troubleshooting rápido, com suporte nativo a ambos os protocolos.</p>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="p-3 font-semibold">Origem</th>
+                                    <th class="p-3 font-semibold">Destino</th>
+                                    <th class="p-3 font-semibold">Serviço</th>
+                                    <th class="p-3 font-semibold">Caminho</th>
+                                    <th class="p-3 font-semibold">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b">
+                                    <td class="p-3 font-mono text-sm">10.1.1.10</td>
+                                    <td class="p-3 font-mono text-sm">10.2.2.20</td>
+                                    <td class="p-3">SIGA</td>
+                                    <td class="p-3">Lan2Lan</td>
+                                    <td class="p-3 text-green-600">Ativo</td>
+                                </tr>
+                                <tr class="border-b">
+                                    <td class="p-3 font-mono text-sm">2001:db8::a</td>
+                                    <td class="p-3 font-mono text-sm">2001:db8::b</td>
+                                    <td class="p-3">Web-Conf</td>
+                                    <td class="p-3">Internet</td>
+                                    <td class="p-3 text-green-600">Ativo</td>
+                                </tr>
+                                <tr class="border-b">
+                                    <td class="p-3 font-mono text-sm">10.3.3.30</td>
+                                    <td class="p-3 font-mono text-sm">8.8.8.8</td>
+                                    <td class="p-3">DNS</td>
+                                    <td class="p-3">Internet</td>
+                                    <td class="p-3 text-green-600">Ativo</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -201,7 +201,7 @@
 
         <section id="implementacao" class="py-20">
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 text-[#4A5C6A]">Guia de Implementação Passo a Passo</h2>
-            <p class="text-lg text-center max-w-3xl mx-auto mb-12 text-[#5E544C]">Siga este guia prático para provisionar um novo Session Smart Router em um campus, desde a preparação da rede local até a validação final da configuração na Mist Cloud.</p>
+            <p class="text-lg text-center max-w-3xl mx-auto mb-12 text-[#5E544C]">Siga este guia prático para provisionar um novo Session Smart Router em um campus, desde a preparação da rede local até a validação final da configuração no Conductor.</p>
             <div class="bg-white p-8 rounded-lg shadow-lg border border-gray-200">
                 <div class="flex justify-center border-b border-gray-200 mb-8">
                     <button class="tab-button py-2 px-6 text-lg font-semibold active" data-tab="preparacao">1. Preparação (ZTP)</button>
@@ -212,28 +212,28 @@
                     <div class="tab-pane active" id="preparacao">
                         <h3 class="text-xl font-bold mb-4">Checklist de Pré-requisitos para Zero-Touch Provisioning (ZTP)</h3>
                         <ul class="list-disc list-inside space-y-2 text-[#5E544C]">
-                            <li><b>DHCP Ativo:</b> A porta WAN do SSR (geralmente `ge-0-0`) deve receber um endereço IP, gateway e DNS via DHCP para a conexão inicial com a Mist Cloud.</li>
-                            <li><b>Resolução DNS:</b> O dispositivo precisa resolver nomes de domínio públicos, como `redirect.juniper.net` e `ep-terminator.mistsys.net`.</li>
-                            <li><b>Regras de Firewall:</b> Garanta que o firewall do campus permita a comunicação de saída do SSR para a Mist Cloud nas portas TCP 443 e 2200. Consulte a documentação para a lista completa de hostnames.</li>
+                            <li><b>Conectividade com o Conductor:</b> A porta WAN do SSR deve ter uma rota para alcançar o endereço IP do servidor Conductor da unespNET.</li>
+                            <li><b>DHCP Ativo:</b> A porta WAN do SSR (geralmente `ge-0-0`) deve receber um endereço IP, gateway e DNS via DHCP para a conexão inicial.</li>
+                            <li><b>Regras de Firewall:</b> Garanta que o firewall do campus permita a comunicação de saída do SSR para o Conductor na porta TCP 443 e outras portas de gerenciamento definidas.</li>
                         </ul>
                     </div>
                     <div class="tab-pane hidden" id="provisionamento">
-                        <h3 class="text-xl font-bold mb-4">Processo de Adoção na Mist Cloud</h3>
+                        <h3 class="text-xl font-bold mb-4">Processo de Adoção no Conductor</h3>
                         <ol class="list-decimal list-inside space-y-2 text-[#5E544C]">
-                            <li><b>Criar Template de WAN Edge:</b> Defina configurações comuns (interfaces, roteamento OSPF) em um template reutilizável para os campi.</li>
-                            <li><b>Definir Variáveis de Site:</b> Use variáveis como `{{WAN_IPv4_ADDR}}` no template e preencha os valores específicos para cada campus, garantindo consistência.</li>
-                            <li><b>Adicionar Dispositivo ("Claim"):</b> Insira o "claim code" do equipamento no inventário da Mist para associá-lo à sua organização.</li>
-                            <li><b>Conectar e Ligar:</b> O técnico local conecta o cabo de rede na porta WAN e liga o SSR. O processo de ZTP é iniciado automaticamente.</li>
+                            <li><b>Configurar a 'Authority':</b> Defina as configurações globais da rede, como topologia e serviços, na 'Authority' do Conductor.</li>
+                            <li><b>Criar o Roteador:</b> Crie uma nova entrada de roteador no Conductor, associando-a a um site e definindo suas configurações específicas (interfaces, OSPF, etc.), utilizando templates se aplicável.</li>
+                            <li><b>Adotar o Ativo ('Adopt Asset'):</b> Quando o SSR físico se conectar pela primeira vez, ele aparecerá como um ativo não gerenciado. Adote-o e associe-o à configuração de roteador criada.</li>
+                            <li><b>Commit da Configuração:</b> Após associar o ativo, realize um 'commit' das configurações no Conductor. A configuração será enviada e aplicada ao SSR remotamente.</li>
                         </ol>
                     </div>
                     <div class="tab-pane hidden" id="validacao">
                         <h3 class="text-xl font-bold mb-4">Validação Pós-Provisionamento</h3>
-                        <p class="mb-4 text-[#5E544C]">Após o processo automatizado, verifique o status do dispositivo e a conectividade da rede.</p>
+                        <p class="mb-4 text-[#5E544C]">Após o processo, verifique o status do dispositivo e a conectividade da rede através do Conductor e do próprio SSR.</p>
                         <ul class="list-disc list-inside space-y-2 text-[#5E544C]">
-                            <li><b>Dashboard da Mist:</b> Confirme se o dispositivo aparece online com o status "verde" e se a configuração aplicada corresponde ao template e às variáveis do site.</li>
-                            <li><b>Terminal Remoto (PCLI):</b> Use o terminal na interface da Mist para executar comandos de validação no SSR.
+                            <li><b>GUI do Conductor:</b> Confirme se o dispositivo aparece online com o status "Running" e "In Sync". Verifique os dashboards de saúde e performance.</li>
+                            <li><b>Terminal do SSR (PCLI):</b> Use o terminal (via SSH ou console do Conductor) para executar comandos de validação no SSR.
                                 <ul class="list-disc list-inside ml-6 mt-2 bg-gray-100 p-2 rounded">
-                                    <li><code>show ospf neighbor</code>: Verifica se a vizinhança OSPF com o roteador do campus foi estabelecida.</li>
+                                    <li><code>show ospf neighbor</code>: Verifica se a vizinhança OSPF com o roteador do campus foi estabelecida (IPv4 e IPv6).</li>
                                     <li><code>show route protocol ospf</code>: Confirma o recebimento de rotas da rede unespNET.</li>
                                     <li><code>show sessions</code>: Observa o tráfego em tempo real passando pelo dispositivo.</li>
                                 </ul>
@@ -246,49 +246,52 @@
 
         <section id="operacoes" class="py-20">
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 text-[#4A5C6A]">Operações e Monitoramento (Dia 2)</h2>
-            <p class="text-lg text-center max-w-3xl mx-auto mb-12 text-[#5E544C]">Explore as ferramentas de AIOps que simplificam o gerenciamento diário da rede. Veja como o dashboard do WAN Assurance e o assistente virtual Marvis permitem a resolução proativa de problemas.</p>
+            <p class="text-lg text-center max-w-3xl mx-auto mb-12 text-[#5E544C]">Explore as ferramentas do Conductor que simplificam o gerenciamento diário da rede. Veja como os dashboards de análise e as ferramentas de troubleshooting permitem a resolução eficiente de problemas.</p>
             <div class="grid md:grid-cols-2 gap-8">
                 <div class="bg-white p-8 rounded-lg shadow-lg border border-gray-200">
-                    <h3 class="text-2xl font-bold mb-6 text-center">Dashboard Simulado: WAN Assurance SLEs</h3>
+                    <h3 class="text-2xl font-bold mb-6 text-center">Dashboard de Análise do Conductor</h3>
                     <div class="space-y-4">
                         <div class="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
-                            <span class="font-semibold">Saúde do Gateway (Hardware)</span>
+                            <span class="font-semibold">Saúde do Roteador</span>
                             <span class="flex items-center space-x-2 text-green-600 font-bold">
                                 <span class="h-3 w-3 bg-green-500 rounded-full"></span>
-                                <span>Excelente</span>
+                                <span>Normal</span>
                             </span>
                         </div>
                         <div class="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
-                            <span class="font-semibold">Saúde dos Links WAN</span>
+                            <span class="font-semibold">Status de Sincronia</span>
+                            <span class="flex items-center space-x-2 text-green-600 font-bold">
+                                <span class="h-3 w-3 bg-green-500 rounded-full"></span>
+                                <span>In Sync</span>
+                            </span>
+                        </div>
+                        <div class="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
+                            <span class="font-semibold">Qualidade dos Links</span>
                             <span class="flex items-center space-x-2 text-green-600 font-bold">
                                 <span class="h-3 w-3 bg-green-500 rounded-full"></span>
                                 <span>Excelente</span>
                             </span>
                         </div>
-                        <div class="flex justify-between items-center p-4 bg-red-50 rounded-lg border border-red-200">
-                            <span class="font-semibold">Experiência de Aplicação</span>
-                            <span class="flex items-center space-x-2 text-red-600 font-bold">
-                                <span class="h-3 w-3 bg-red-500 rounded-full"></span>
-                                <span>Degradada</span>
-                            </span>
-                        </div>
                     </div>
-                    <p class="mt-6 text-sm text-[#5E544C]">O dashboard permite uma análise detalhada (*drill-down*), partindo de um SLE "vermelho" para identificar rapidamente qual campus, link ou aplicação está causando a degradação do serviço.</p>
+                    <p class="mt-6 text-sm text-[#5E544C]">O Conductor oferece visões consolidadas do estado de toda a frota de SSRs, permitindo identificar rapidamente dispositivos com problemas de hardware, configuração ou conectividade.</p>
                 </div>
                 <div class="bg-white p-8 rounded-lg shadow-lg border border-gray-200">
-                    <h3 class="text-2xl font-bold mb-6 text-center">Assistente Virtual Marvis</h3>
-                    <div class="bg-gray-800 text-white p-4 rounded-lg h-64 flex flex-col">
-                        <div class="flex-grow overflow-y-auto" id="marvis-chat">
-                            <div class="mb-2">
-                                <span class="font-mono text-green-400">Marvis > </span><span>Como posso ajudar?</span>
-                            </div>
+                    <h3 class="text-2xl font-bold mb-6 text-center">Troubleshooting de Sessão</h3>
+                    <div class="bg-gray-100 p-4 rounded-lg">
+                        <div class="mb-4">
+                            <label for="session-search" class="block text-sm font-medium text-gray-700">Buscar Sessão (IP, Serviço...)</label>
+                            <input type="text" id="session-search" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="2001:db8::a">
                         </div>
-                        <div class="mt-4">
-                            <p class="text-sm text-gray-400 mb-2">Experimente perguntar:</p>
-                            <button class="marvis-prompt text-sm bg-gray-700 hover:bg-gray-600 rounded px-2 py-1">Por que a experiência com videoconferência está ruim?</button>
+                        <div class="text-sm text-gray-600">
+                            <p><span class="font-semibold">Resultado:</span> Encontrada 1 sessão ativa.</p>
+                            <p><span class="font-semibold">Origem:</span> 2001:db8::a</p>
+                            <p><span class="font-semibold">Destino:</span> 2001:db8::b</p>
+                            <p><span class="font-semibold">Serviço:</span> Web-Conf</p>
+                            <p><span class="font-semibold">Política:</span> Permitir-Colaboracao</p>
+                            <p><span class="font-semibold">Caminho Ativo:</span> Internet_Campus_Bauru</p>
                         </div>
                     </div>
-                     <p class="mt-6 text-sm text-[#5E544C]">Marvis usa linguagem natural para analisar dados e identificar a causa raiz dos problemas, transformando a solução de problemas em um processo proativo e eficiente.</p>
+                     <p class="mt-6 text-sm text-[#5E544C]">A ferramenta de busca de sessão permite que os administradores isolem rapidamente fluxos de tráfego específicos para diagnosticar problemas de conectividade ou performance.</p>
                 </div>
             </div>
         </section>
@@ -305,42 +308,35 @@
             const architectureData = {
                 ssr: {
                     title: "Session Smart Router (SSR)",
-                    text: "No coração da solução está o SSR, um roteador consciente da sessão. Ele utiliza a tecnologia Secure Vector Routing (SVR), uma abordagem 'tunnel-free' que insere metadados de roteamento apenas no primeiro pacote de uma sessão. Isso elimina a sobrecarga de encapsulamento, resultando em maior eficiência de banda, menor latência e melhor desempenho para aplicações críticas. Sua consciência de sessão permite failover transparente sem interromper a conexão do usuário."
+                    text: "No coração da solução está o SSR, um roteador consciente da sessão. Ele utiliza a tecnologia Secure Vector Routing (SVR), uma abordagem 'tunnel-free' que insere metadados de roteamento apenas no primeiro pacote de uma sessão. Isso elimina a sobrecarga de encapsulamento, resultando em maior eficiência de banda, menor latência e melhor desempenho para aplicações críticas, com suporte completo a IPv4 e IPv6."
                 },
-                mist: {
-                    title: "Juniper Mist Cloud & WAN Assurance",
-                    text: "Esta é a plataforma centralizada de gerenciamento, orquestração e inteligência. Utilizando AIOps (IA para Operações de TI), a Mist Cloud simplifica todo o ciclo de vida da rede, desde o provisionamento Zero-Touch (ZTP) até o monitoramento contínuo. O motor de IA, Marvis, analisa a telemetria da rede para fornecer insights proativos, identificar a causa raiz de problemas e garantir que as Expectativas de Nível de Serviço (SLEs) dos usuários sejam atendidas."
+                conductor: {
+                    title: "Juniper Conductor",
+                    text: "Esta é a plataforma centralizada de gerenciamento e orquestração, que pode ser hospedada on-premise ou em nuvem privada. O Conductor fornece uma interface gráfica unificada para configurar, monitorar e solucionar problemas de toda a frota de SSRs. Ele é o cérebro da operação, onde as políticas de roteamento, segurança e serviços são definidas e distribuídas. Seu suporte robusto a IPv6 é essencial para a rede unespNET."
                 },
                 lan2lan: {
                     title: "Underlay (Lan2Lan) e Overlay",
-                    text: "A solução SD-WAN opera como uma camada de inteligência (overlay) sobre a infraestrutura de rede física existente (underlay). A robusta rede Lan2Lan da Unesp é aproveitada como um caminho de transporte preferencial de alto desempenho. Os SSRs são configurados para direcionar o tráfego intercampus primariamente pela Lan2Lan, utilizando os links de internet de cada campus como caminhos secundários ou para acesso direto à nuvem, garantindo resiliência e otimização de custos."
+                    text: "A solução SD-WAN opera como uma camada de inteligência (overlay) sobre a infraestrutura de rede física existente (underlay). A robusta rede Lan2Lan da Unesp é aproveitada como um caminho de transporte preferencial de alto desempenho. Os SSRs são configurados para direcionar o tráfego intercampus primariamente pela Lan2Lan, utilizando os links de internet de cada campus como caminhos secundários ou para acesso direto à nuvem."
                 },
                 'zero-trust': {
                     title: "Segurança Zero Trust Integrada",
-                    text: "A segurança não é um adendo, mas um pilar fundamental da arquitetura. O modelo opera com o princípio 'deny-by-default', onde nenhum tráfego é permitido a menos que seja explicitamente autorizado por uma política. A autenticação e autorização são baseadas em 'Tenants' (grupos de usuários/dispositivos) e 'Services' (aplicações/destinos permitidos), garantindo que cada sessão seja validada antes de ser estabelecida. Isso reduz drasticamente a superfície de ataque da rede."
+                    text: "A segurança é um pilar fundamental da arquitetura. O modelo opera com o princípio 'deny-by-default', onde nenhum tráfego é permitido a menos que seja explicitamente autorizado por uma política. A autenticação e autorização são baseadas em 'Tenants' (grupos de usuários/dispositivos) e 'Services' (aplicações/destinos permitidos), garantindo que cada sessão seja validada antes de ser estabelecida."
                 }
             };
-
-            const ztExplanations = {
-                'zt-step-1': "Um dispositivo na rede (ex: um computador de um professor) tenta iniciar uma comunicação com um destino (ex: um servidor acadêmico). O primeiro pacote desse fluxo chega à interface do SSR.",
-                'zt-step-2': "O SSR verifica o endereço de origem do pacote. Ele determina se a origem pertence a um 'Tenant' pré-definido e válido, como 'Docentes' ou 'Alunos'. Se a origem não for reconhecida, o pacote é descartado imediatamente.",
-                'zt-step-3': "Se a origem for válida, o SSR verifica o destino. Ele determina se o 'Tenant' de origem tem permissão para acessar o 'Service' de destino. Por exemplo, o tenant 'Docentes' pode ter acesso ao 'Sistema-Academico', mas o tenant 'Visitantes' não. Se não houver permissão, o pacote é descartado.",
-                'zt-step-4': "Apenas se ambas as verificações forem bem-sucedidas, a sessão é considerada autorizada e o SSR estabelece o fluxo de comunicação, encaminhando os pacotes pelo caminho de rede mais apropriado."
-            };
-
+            
             const svrChartCtx = document.getElementById('svrChart').getContext('2d');
             new Chart(svrChartCtx, {
                 type: 'bar',
                 data: {
-                    labels: ['Transferência de Dados (1GB)'],
+                    labels: ['IPsec Tradicional', 'Juniper SVR'],
                     datasets: [{
                         label: 'Dados Úteis',
-                        data: [1000],
+                        data: [85, 98],
                         backgroundColor: '#6B8A9C',
                         borderWidth: 1
                     }, {
                         label: 'Overhead de Encapsulamento',
-                        data: [150],
+                        data: [15, 2],
                         backgroundColor: '#C8D3DB',
                         borderWidth: 1
                     }]
@@ -348,14 +344,11 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    indexAxis: 'y',
                     scales: {
-                        x: {
-                            stacked: true,
-                            title: { display: true, text: 'Uso de Banda (MB)' }
-                        },
+                        x: { stacked: true },
                         y: {
-                            stacked: true
+                            stacked: true,
+                            title: { display: true, text: 'Eficiência de Banda (%)' }
                         }
                     },
                     plugins: {
@@ -363,66 +356,10 @@
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
-                                    let label = context.dataset.label || '';
-                                    if (label) {
-                                        label += ': ';
-                                    }
-                                    if (context.parsed.x !== null) {
-                                        label += context.parsed.x + ' MB';
-                                    }
-                                    return label;
+                                    return `${context.dataset.label}: ${context.parsed.y}%`;
                                 }
                             }
                         }
-                    }
-                }
-            });
-            
-            const sleChartCtx = document.getElementById('sleChart').getContext('2d');
-            new Chart(sleChartCtx, {
-                type: 'line',
-                data: {
-                    labels: ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00'],
-                    datasets: [{
-                        label: 'SLA: Uptime do Link (%)',
-                        data: [99.9, 99.9, 99.9, 99.9, 99.9, 99.9],
-                        borderColor: '#9DB5C4',
-                        backgroundColor: '#9DB5C420',
-                        fill: true,
-                        yAxisID: 'ySLA',
-                    }, {
-                        label: 'SLE: Qualidade da Videochamada (MOS)',
-                        data: [4.5, 4.4, 2.1, 2.5, 4.3, 4.5],
-                        borderColor: '#4A5C6A',
-                        backgroundColor: '#4A5C6A20',
-                        fill: true,
-                        yAxisID: 'ySLE',
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        ySLA: {
-                            type: 'linear',
-                            display: true,
-                            position: 'left',
-                            min: 99,
-                            max: 100,
-                            title: { display: true, text: 'SLA (%)' }
-                        },
-                        ySLE: {
-                            type: 'linear',
-                            display: true,
-                            position: 'right',
-                            min: 1,
-                            max: 5,
-                            title: { display: true, text: 'SLE (MOS Score)' },
-                            grid: { drawOnChartArea: false }
-                        }
-                    },
-                    plugins: {
-                        tooltip: { mode: 'index', intersect: false }
                     }
                 }
             });
@@ -494,36 +431,6 @@
                         }
                     });
                 });
-            });
-            
-            const ztSteps = document.querySelectorAll('.zt-step');
-            const ztExplanation = document.getElementById('zt-explanation');
-            ztSteps.forEach(step => {
-                step.addEventListener('click', () => {
-                    const stepId = step.id;
-                    if (ztExplanations[stepId]) {
-                        ztExplanation.textContent = ztExplanations[stepId];
-                        ztSteps.forEach(s => s.style.borderColor = '#D1D5DB');
-                        step.style.borderColor = '#4A5C6A';
-                    }
-                });
-            });
-
-            const marvisPrompt = document.querySelector('.marvis-prompt');
-            const marvisChat = document.getElementById('marvis-chat');
-            marvisPrompt.addEventListener('click', () => {
-                const userQuery = document.createElement('div');
-                userQuery.className = 'mb-2 text-right';
-                userQuery.innerHTML = `<span>Por que a experiência com videoconferência está ruim?</span><span class="font-mono text-cyan-400"> < Usuário</span>`;
-                marvisChat.appendChild(userQuery);
-
-                setTimeout(() => {
-                    const marvisResponse = document.createElement('div');
-                    marvisResponse.className = 'mb-2';
-                    marvisResponse.innerHTML = `<span class="font-mono text-green-400">Marvis > </span><span>Detectei alta perda de pacotes no link de internet do campus de Araraquara entre 11:00 e 12:00, coincidindo com a degradação. A causa raiz parece ser congestionamento no provedor local.</span>`;
-                    marvisChat.appendChild(marvisResponse);
-                    marvisChat.scrollTop = marvisChat.scrollHeight;
-                }, 1000);
             });
         });
     </script>
